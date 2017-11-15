@@ -15,6 +15,7 @@
  */
 
 #include "tsharkdecoder.h"
+#include <QStringList>
 
 TSharkDecoder::TSharkDecoder()
 {
@@ -29,14 +30,14 @@ TSharkDecoder::~TSharkDecoder()
 /* Decoding starts here
  */
 
-void TSharkDecoder::startDecoder(QString strEncodedData, QString strProtocol)
+void TSharkDecoder::startDecoder(QString strEncodedData, QString strProtocol, int index)
 {
     QString strData;
     QString strTsharkPath;
     strData = preformatData(strEncodedData);
     strTsharkPath = getTsharkPath();
     format_file_for_text2pcap(strData);
-    call_text2pacp(strTsharkPath);
+    call_text2pacp(strTsharkPath, index);
     call_tshark(strTsharkPath, strProtocol);
     clean_output();
 }
@@ -88,7 +89,7 @@ QString TSharkDecoder::preformatData(QString strEncodedData){
 QString TSharkDecoder::getTsharkPath()
 {
     QString strWiresharkLoc;
-    strWiresharkLoc = "C:\\Progra~1\\Wireshark\\";
+    strWiresharkLoc = "";
     QFile wiresharkpath("config.txt");
     if(!wiresharkpath.exists())
     {
@@ -106,7 +107,7 @@ QString TSharkDecoder::getTsharkPath()
                     strWiresharkLoc = strLine.remove(0,10);
                     if(strWiresharkLoc.contains("86"))
                     {
-                        strWiresharkLoc = "C:\\Progra~2\\Wireshark\\";
+                        strWiresharkLoc = "";
                     }
                 }
             }
@@ -126,7 +127,7 @@ void TSharkDecoder::format_file_for_text2pcap(QString strData)
     if (textFile.open(QIODevice::ReadWrite)) {
         QTextStream stream(&textFile);
         stream << "0000";
-        stream <<strData;
+        stream <<strData<<endl;
         qDebug() << strData;
     }
 }
@@ -135,9 +136,13 @@ void TSharkDecoder::format_file_for_text2pcap(QString strData)
  * Function calls text2pack.exe from wireshark folder.
  */
 
-void TSharkDecoder::call_text2pacp(QString strTsharkPath)
+void TSharkDecoder::call_text2pacp(QString strTsharkPath, int index)
 {
-    QString command= strTsharkPath + "text2pcap.exe -q -l 147 textdata.txt decode_temp.pcap";
+    QString command;
+    command = command.append(strTsharkPath);
+    command = command.append("text2pcap -q -l 15");
+    command = command.append(QString::number(index));
+    command = command.append(" textdata.txt decode_temp.pcap");
     system(qPrintable(command));
     qDebug() << command;
 }
@@ -151,12 +156,13 @@ void TSharkDecoder::call_tshark(QString strTsharkPath, QString strProtocol)
 {
     QString command;
     command = command.append(strTsharkPath);
-    command = command.append("tshark.exe -o \"uat:user_dlts:\\\"User 0 (DLT=147)\\\",\\\"");
-    command = command.append(strProtocol);
-    command = command.append("\\\",\\\"0\\\",\\\"\\\",\\\"0\\\",\\\"\\\"\" -r decode_temp.pcap\  -V > decode_output_temp.txt");
+//    command = command.append("tshark -o \"uat:user_dlts:\\\"User 0 (DLT=151)\\\",\\\"");
+//    command = command.append(strProtocol);
+//    command = command.append("\\\",\\\"0\\\",\\\"\\\",\\\"0\\\",\\\"\\\"\" -r decode_temp.pcap\  -V > decode_output_temp.txt");
+    command = command.append("tshark -r decode_temp.pcap -V >decode_output_temp.txt");
     qDebug() << command;
     system(qPrintable(command));
-    system("del textdata.txt decode_temp.pcap");
+    //system("del textdata.txt decode_temp.pcap");
 }
 
 /* After decode the first 15 lines are useless data for us.

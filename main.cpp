@@ -13,7 +13,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+/*
+my user_dlts:
 
+"User 3 (DLT=150)","lte-rrc.bcch.bch","0","","0",""
+
+"User 4 (DLT=151)","lte-rrc.bcch.dl.sch","0","","0",""
+
+"User 5 (DLT=152)","lte-rrc.dl.ccch","0","","0",""
+
+"User 6 (DLT=153)","lte-rrc.dl.dcch","0","","0",""
+
+"User 7 (DLT=154)","lte-rrc.pcch","0","","0",""
+
+"User 8 (DLT=155)","lte-rrc.ul.ccch","0","","0",""
+
+"User 9 (DLT=156)","lte-rrc.ul.dcch","0","","0","" 
+*/
 
 #include "mainwindow.h"
 #include <QApplication>

@@ -1,0 +1,75 @@
+DL-CCCH-Message
+    message: c1 (0)
+        c1: rrcConnectionSetup (3)
+            rrcConnectionSetup
+                rrc-TransactionIdentifier: 0
+                criticalExtensions: c1 (0)
+                    c1: rrcConnectionSetup-r8 (0)
+                        rrcConnectionSetup-r8
+                            radioResourceConfigDedicated
+                                srb-ToAddModList: 1 item
+                                    Item 0
+                                        SRB-ToAddMod
+                                            srb-Identity: 1
+                                mac-MainConfig: explicitValue (0)
+                                    explicitValue
+                                        timeAlignmentTimerDedicated: sf500 (0)
+                                physicalConfigDedicated
+                                    pdsch-ConfigDedicated
+                                        p-a: dB-3 (2)
+                                    pucch-ConfigDedicated
+                                        ackNackRepetition: release (0)
+                                            release: NULL
+                                    uplinkPowerControlDedicated
+                                        p0-UE-PUSCH: 0dB
+                                        deltaMCS-Enabled: en0 (0)
+                                        .... 1... accumulationEnabled: True
+                                        p0-UE-PUCCH: 0dB
+                                        pSRS-Offset: 3
+                                        filterCoefficient: fc4 (4)
+                                    antennaInfo: defaultValue (1)
+                                        defaultValue: NULL
+                                    schedulingRequestConfig: setup (1)
+                                        setup
+                                            sr-PUCCH-ResourceIndex: 0
+                                            sr-ConfigIndex: 17
+                                                [Periodicity: 20]
+                                                [Subframe Offset: 2]
+                                            dsr-TransMax: n64 (4)
+                                    epdcch-Config-r11
+                                        config-r11: setup (1)
+                                            setup
+                                                setConfigToAddModList-r11: 1 item
+                                                    Item 0
+                                                        EPDCCH-SetConfig-r11
+                                                            setConfigId-r11: 0
+                                                            transmissionType-r11: distributed (1)
+                                                            resourceBlockAssignment-r11
+                                                                numberPRB-Pairs-r11: n2 (0)
+                                                                resourceBlockAssignment-r11: 0380 [bit length 10, 6 LSB pad bits, 0000 0011  10.. .... decimal value 14]
+                                                            dmrs-ScramblingSequenceInt-r11: 0
+                                                            pucch-ResourceStartOffset-r11: 0
+                                                            numberPRB-Pairs-v1310: setup (1)
+                                                                setup: n6 (0)
+                                                            mpdcch-config-r13: setup (1)
+                                                                setup
+                                                                    csi-NumRepetitionCE-r13: sf1 (0)
+                                                                    mpdcch-pdsch-HoppingConfig-r13: off (1)
+                                                                    mpdcch-StartSF-UESS-r13: fdd-r13 (0)
+                                                                        fdd-r13: v1 (0)
+                                                                    mpdcch-NumRepetition-r13: r1 (0)
+                                                                    mpdcch-Narrowband-r13: 1
+                                    pucch-ConfigDedicated-r13
+                                        ackNackRepetition-r13: release (0)
+                                            release: NULL
+                                        .0.. .... spatialBundlingPUCCH-r13: False
+                                        ..0. .... spatialBundlingPUSCH-r13: False
+                                        ...0 .... harq-TimingTDD-r13: False
+                                        pucch-NumRepetitionCE-r13: setup (1)
+                                            setup: modeA (0)
+                                                modeA
+                                                    pucch-NumRepetitionCE-format1-r13: r1 (0)
+                                                    pucch-NumRepetitionCE-format2-r13: r1 (0)
+                                    ce-Mode-r13: setup (1)
+                                        setup: ce-ModeA (0)
+

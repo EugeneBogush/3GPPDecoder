@@ -81,7 +81,7 @@ void MainWindow::on_pushButtonDecode_clicked()
                 {
                     protocol_selected = "gsm_a_dtap";
                 }
-                tshark_decoder->startDecoder(encoded_pdu, protocol_selected);
+                tshark_decoder->startDecoder(encoded_pdu, protocol_selected, ui->comboBoxProtocol->currentIndex());
             }
             readfile();
         }
